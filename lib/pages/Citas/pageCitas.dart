@@ -1,3 +1,4 @@
+import 'package:api/pages/widget/textoForm.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -120,8 +121,8 @@ class _PageCitasState extends State<PageCitas> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                      title: Text("Alerta!"),
-                                      content: Text("¿Seguro quieres cancelar la cita?"),
+                                      title: const Text("Alerta!"),
+                                      content: const Text("¿Seguro quieres cancelar la cita?"),
                                       actions: [
                                       TextButton(
                                         onPressed: () async{
@@ -129,11 +130,11 @@ class _PageCitasState extends State<PageCitas> {
                                         await fetchCitas();
                                         Navigator.of(context).pop();
                                         },
-                                        child: Text("Aceptar")
+                                        child: const Text("Aceptar")
                                       ),
                                       TextButton(
                                         onPressed: ()=>Navigator.of(context).pop(),
-                                        child: Text("Cancelar")
+                                        child: const Text("Cancelar")
                                       )
                                     ]
                                   );
@@ -198,14 +199,23 @@ class _PageCitasState extends State<PageCitas> {
       // ignore: use_build_context_synchronously
       showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         builder: (BuildContext context) {
           return StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
+              double screenWidth = MediaQuery.of(context).size.width;
               return Container(
-                padding: EdgeInsets.all(16),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 44, 44, 44),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
+                ),
+                width: screenWidth,
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     DropdownButton<Map<String, dynamic>>(
+                      dropdownColor: const Color.fromARGB(255, 44, 44, 44),
+                      style: TextStyle(color: Colors.white),
                       value: selectedService,
                       onChanged: (Map<String, dynamic>? newValue) {
                         setState(() {
@@ -221,19 +231,29 @@ class _PageCitasState extends State<PageCitas> {
                           );
                         },
                       ).toList(),
-                      hint: Text('Selecciona un servicio'),
+                      hint: const Text('Selecciona un servicio', style: TextStyle(color: Colors.white),),
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     if (selectedService != null) ...[
-                      Text('${selectedService!['nombre']}'),
-                      Text('${selectedService!['precio']}'),
-                      Text('${selectedService!['duracion']}h'),
-                      Text(
-                          '${selectedDate!.toLocal().toIso8601String().split('T')[0]}'),
-                      Text(
-                          "${selectedTime?.hour}:${selectedTime?.minute.toString().padLeft(2, '0')}")
+                      const Text("Servicio",style: TextStyle(color: Colors.white ),),
+                      Label(screenWidth: screenWidth, dato: '${selectedService!['nombre']}'),
+                      const Text("Precio",style: TextStyle(color: Colors.white )),
+                      Label(screenWidth: screenWidth, dato: '${selectedService!['precio']}'),
+                      const Text("Duración",style: TextStyle(color: Colors.white )),
+                      Label(screenWidth: screenWidth, dato: '${selectedService!['duracion']}h'),
+                      const Text("Fecha de la cita",style: TextStyle(color: Colors.white )),
+                      Label(screenWidth: screenWidth, dato: '${selectedDate!.toLocal().toIso8601String().split('T')[0]}'),
+                      const Text("Hora de la cita",style: TextStyle(color: Colors.white )),
+                      Label(screenWidth: screenWidth, dato: '${selectedTime?.hour}:${selectedTime?.minute.toString().padLeft(2, '0')}'),
                     ],
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      }, 
+                      child: const Text("Cancelar")
+                    ),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
                         if (selectedService != null) {
@@ -242,8 +262,8 @@ class _PageCitasState extends State<PageCitas> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Aviso'),
-                                content: Text('¿Estas seguro de agendar la cita?'),
+                                title: const Text('Aviso'),
+                                content: const Text('¿Estas seguro de agendar la cita?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () async {
@@ -254,17 +274,19 @@ class _PageCitasState extends State<PageCitas> {
                                         "${selectedTime?.hour}:${selectedTime?.minute.toString().padLeft(2, '0')}",
                                       );
                                       await fetchCitas();
+                                      // ignore: use_build_context_synchronously
                                       Navigator.of(context).pop();
+                                      // ignore: use_build_context_synchronously
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context){
                                           return AlertDialog(
-                                            title: Text("Exito"),
-                                            content: Text("Cita agendada exitosamente"),
+                                            title: const Text("Exito"),
+                                            content: const Text("Cita agendada exitosamente"),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.of(context).pop(),
-                                                child: Text("Aceptar")
+                                                child: const Text("Aceptar")
                                               )
                                             ]
                                           );
@@ -272,13 +294,13 @@ class _PageCitasState extends State<PageCitas> {
                                       );
                                     },
                                     
-                                    child: Text('Agendar'),
+                                    child: const Text('Agendar'),
                                   ),
                                   TextButton(
                                     onPressed: (){
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text("Cancelar")
+                                    child: const Text("Cancelar")
                                   )
                                 ],
                               );
@@ -289,14 +311,14 @@ class _PageCitasState extends State<PageCitas> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Aviso'),
-                                content: Text('Elija un servicio.'),
+                                title: const Text('Aviso'),
+                                content: const Text('Elija un servicio.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text('Aceptar'),
+                                    child: const Text('Aceptar'),
                                   ),
                                 ],
                               );
@@ -304,7 +326,7 @@ class _PageCitasState extends State<PageCitas> {
                           );
                         }
                       },
-                      child: Text('Agendar'),
+                      child: const Text('Agendar'),
                     ),
                   ],
                 ),
