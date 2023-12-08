@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:matissamovile/pages/Citas/pageCitas.dart';
+import 'package:matissamovile/pages/Login/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: PageCitas()
+      home: MyLogin()
     );
   }
 }

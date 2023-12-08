@@ -1,12 +1,15 @@
-import 'package:api/pages/widget/textoForm.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:expansion_tile_card/expansion_tile_card.dart';
+import 'package:matissamovile/pages/widget/textoFrom.dart';
 import '../widget/AppBar.dart';
 
 class PageCitas extends StatefulWidget {
-  const PageCitas({Key? key}) : super(key: key);
+  final String clienteId;
+  final String clienteCorre;
+  final String clienteContrasena;
+  const PageCitas({Key? key, required this.clienteId, required this.clienteCorre, required this.clienteContrasena}) : super(key: key);
 
   @override
   State<PageCitas> createState() => _PageCitasState();
@@ -376,7 +379,7 @@ class _PageCitasState extends State<PageCitas> {
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'cliente': "Santiago Alzate Olivero",
+        'cliente': "${widget.clienteId}",
         'fechaRegistro': '${fecha()}',
         'costoTotal': costoTotal,
         'servicio': servicio,
