@@ -55,10 +55,10 @@ class _MyLoginState extends State<MyLogin> {
           // En este ejemplo, simplemente imprimimos el ID y vamos a la siguiente página
           print('Usuario ID: $clienteId');
 
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => PageCitas(clienteId: "$clienteId", clienteCorre: "$storedCorreo", clienteContrasena: "$storedPassword")),
+                builder: (context) => PageCitas(clienteId: "$clienteId", clienteCorreo: "$storedCorreo", clienteContrasena: "$storedPassword")),
           );
         } else {
           _showErrorDialog(context, 'Contraseña incorrecta');

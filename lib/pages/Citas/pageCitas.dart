@@ -7,9 +7,9 @@ import '../widget/AppBar.dart';
 
 class PageCitas extends StatefulWidget {
   final String clienteId;
-  final String clienteCorre;
+  final String clienteCorreo;
   final String clienteContrasena;
-  const PageCitas({Key? key, required this.clienteId, required this.clienteCorre, required this.clienteContrasena}) : super(key: key);
+  const PageCitas({Key? key, required this.clienteId, required this.clienteCorreo, required this.clienteContrasena}) : super(key: key);
 
   @override
   State<PageCitas> createState() => _PageCitasState();
@@ -349,16 +349,18 @@ class _PageCitasState extends State<PageCitas> {
       List<dynamic> jsonData = jsonDecode(response.body);
       List<Map<String, dynamic>> newCitas = [];
       for (var item in jsonData) {
-        newCitas.add({
-          '_id': item['_id'],
-          'fechaRegistro': item['fechaRegistro'],
-          'horaCita': item['horaCita'],
-          'costoTotal': item['costoTotal'],
-          'servicio': item['servicio'],
-          'fechaCita': item['fechaCita'],
-          'estado': item['estado'],
-          // Agrega más campos según la estructura de tus citas
-        });
+        if(item['cliente'] == widget.clienteCorreo){
+          newCitas.add({
+            '_id': item['_id'],
+            'fechaRegistro': item['fechaRegistro'],
+            'horaCita': item['horaCita'],
+            'costoTotal': item['costoTotal'],
+            'servicio': item['servicio'],
+            'fechaCita': item['fechaCita'],
+            'estado': item['estado'],
+            // Agrega más campos según la estructura de tus citas
+          });
+        }
       }
 
       setState(() {
@@ -379,7 +381,7 @@ class _PageCitasState extends State<PageCitas> {
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'cliente': "${widget.clienteId}",
+        'cliente': "${widget.clienteCorreo}",
         'fechaRegistro': '${fecha()}',
         'costoTotal': costoTotal,
         'servicio': servicio,
