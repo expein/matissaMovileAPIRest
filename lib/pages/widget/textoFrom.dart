@@ -12,6 +12,22 @@ class Label extends StatefulWidget {
 class _LabelState extends State<Label> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      width: widget.screenWidth,
+      height: 35,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(35.0),
+        color: Colors.white, // Puedes personalizar el color y el grosor del borde
+      ),
+        child: Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(widget.dato),
+            ],
+          )
+        )
+    );
   }
 }

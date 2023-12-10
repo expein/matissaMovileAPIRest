@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:matissamovile/pages/Citas/pageCitas.dart';
 import 'package:matissamovile/pages/Login/login.dart';
 import 'package:matissamovile/pages/Pedidos/pagePedidos.dart';
+import 'package:matissamovile/pages/perfil/miperfil.dart';
 
 class MyDrawer extends StatefulWidget {
   final String clienteId;
@@ -85,11 +86,11 @@ class _MyDrawerState extends State<MyDrawer> {
                     selected: _selectedIndex == 0,
                     onTap: () {
                       _onItemTapped(0);
-                      // Navigator.pushReplacement(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const PerfilPage(),
-                      //     ));
+                       Navigator.pushReplacement(
+                           context,
+                           MaterialPageRoute(
+                             builder: (context) => PerfilPage(clienteId: widget.clienteId, clienteCorreo: widget.clienteCorreo, clienteContrasena: widget.clienteContrasena,),
+                           ));
                     },
                   ),
                   ListTile(
@@ -160,8 +161,9 @@ class _MyDrawerState extends State<MyDrawer> {
                   color: Colors.white,
                 ),
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const MyLogin()));
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyLogin()));
                 },
               ),
             ),

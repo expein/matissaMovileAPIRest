@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:matissamovile/pages/Citas/pageCitas.dart';
+import 'package:matissamovile/pages/Register/register.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -70,9 +71,7 @@ class _MyLoginState extends State<MyLogin> {
       final dynamic responseData = json.decode(response.body);
       final errorMessage =
           responseData['message'] ?? 'Error de inicio de sesión';
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
-      );
+      _showErrorDialog(context, errorMessage);
     }
   }
 
@@ -228,7 +227,10 @@ class _MyLoginState extends State<MyLogin> {
                         140, 35), // Cambiar el tamaño mínimo del botón aquí
                   ),
                   onPressed: () {
-
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const RegisterPage(),)
+                    );
                   },
                   child: Text(
                     'Registrate',
@@ -250,21 +252,31 @@ class _MyLoginState extends State<MyLogin> {
 }
 
 void _showErrorDialog(BuildContext context, String errorMessage) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Error de inicio de sesión'),
-        content: Text(errorMessage),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('OK'),
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          const Icon(
+            Icons.cancel,
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
+          const SizedBox(
+            width: 5,
+          ),
+          Text(
+            errorMessage,
+            style: const TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Quicksand-SemiBold'),
+          )
         ],
-      );
-    },
-  );
+      ),
+      duration: const Duration(milliseconds: 2000),
+      width: 300,
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(3.0),
+      ),
+      backgroundColor: Colors.red));
 }

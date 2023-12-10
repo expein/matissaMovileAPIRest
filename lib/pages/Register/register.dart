@@ -408,6 +408,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   );
                                 }
                             }
+                            Navigator.of(context).pop();
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 10,
