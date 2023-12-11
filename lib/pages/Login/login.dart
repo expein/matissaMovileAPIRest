@@ -124,7 +124,7 @@ class _MyLoginState extends State<MyLogin> {
                     ),
                     enableIMEPersonalizedLearning: false,
                     decoration: InputDecoration(
-                      hintText: 'Usuario',
+                      hintText: 'Correo',
                       hintStyle: TextStyle(
                         fontFamily: GoogleFonts.quicksand().fontFamily,
                         color: Colors.white,
@@ -154,7 +154,7 @@ class _MyLoginState extends State<MyLogin> {
                     enableIMEPersonalizedLearning: false,
                     obscureText: true,
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText: 'Contraseña',
                       hintStyle: TextStyle(
                         fontFamily: GoogleFonts.quicksand().fontFamily,
                         color: Colors.white,

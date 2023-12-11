@@ -375,7 +375,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     children: <Widget>[
                                       Icon(
                                         register ? Icons.check_circle : Icons.error,
-                                        color: Color.fromARGB(255, 255, 255, 255),
+                                        color: Color.fromARGB(255, 6, 6, 6),
                                       ),
                                       SizedBox(
                                         width: 10,
@@ -408,7 +408,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   );
                                 }
                             }
-                            Navigator.of(context).pop();
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 10,
